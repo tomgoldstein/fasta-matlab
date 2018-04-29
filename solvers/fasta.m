@@ -277,7 +277,25 @@ return
 %% Fill in the struct of options with the default values
 function opts = setDefaults(opts,A,At,x0,gradf)
 
+% A list of all valid option
+valid_options = {'maxIters','tol','verbose','recordObjective',...
+    'recordIterates','adaptive','accelerate','restart','backtrack',...
+    'stepsizeShrink','window','eps_r','eps_n','L','tau','function',...
+    'stringHeader','stopRule','stopNow'};
 
+% Check that every option provided by the user is valid
+fn = fieldnames(opts);
+for i = 1:length(fn)
+  if ~ismember(fn{i},valid_options)
+      error(['Invalid option for FASTA (',fn{i},...
+          ').  Valid choices are: ',...
+          'maxIters, tol, verbose, recordObjective, recordIterates, ',... 
+          'adaptive, accelerate, restart, backtrack, stepsizeShrink, ',...
+          'window, eps_r, eps_n, L, tau, function, stringHeader, ',...
+          'stopRule, stopNow.']);
+  end
+end
+    
 %  maxIters: The maximum number of iterations
 if ~isfield(opts,'maxIters')
     opts.maxIters = 1000;
@@ -338,6 +356,7 @@ opts.mode = 'plain';
 if opts.adaptive
      opts.mode = 'adaptive';
 end
+
 if opts.accelerate
     if opts.restart
         opts.mode = 'accelerated(FISTA)+restart';
