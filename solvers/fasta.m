@@ -236,7 +236,7 @@ function [ sol, outs, opts ] = fasta(A, At, f, gradf, g, proxg, x0, opts )
          x_accel1 = x1;
          d_accel1 = d1;
          %  Check to see if the acceleration needs to be restarted
-         if opts.restart && (x0(:)-x1(:))'*(x1(:)-x_accel0(:))>0
+         if opts.restart && (x0(:)-x1(:))'*(x_accel1(:)-x_accel0(:))>0
              alpha0=1;
          end
          %  Calculate acceleration parameter
