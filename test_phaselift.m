@@ -72,7 +72,7 @@ opts.adaptive = false;
 [V,D] = eig(reshape(sol,[n,n])); %  get principle eigenvector
 [val,ind] = max(diag(D));
 recovered = V(:,ind)*sqrt(D(ind,ind));
-      % figure out how muhc energy we're missing because the solution might
+      % figure out how much energy we're missing because the solution might
       % have other eigenvectors
 lifted = recovered*recovered';
 scale = norm(b)/norm(A*lifted(:));
